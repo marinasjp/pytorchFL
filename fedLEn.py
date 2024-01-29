@@ -13,10 +13,6 @@ matplotlib.use('TkAgg')
 
 classes = len(labels)
 
-############################
-# classes = 12
-###############
-
 num_clients = 1
 rounds = 100
 batch_size = 64
@@ -184,11 +180,12 @@ client_idcs = split_noniid(train_idcs, train_labels, 1, num_clients)
 def resnet_34():
     # Define the resnet model
     resnet = resnet18(weights='IMAGENET1K_V1')
+    # resnet.conv1 = torch.nn.Conv2d(1, 64, kernel_size=7, stride=2, padding=3, bias=False)
     for param in resnet.parameters():
         param.requires_grad = False
     resnet.fc = torch.nn.Linear(resnet.fc.in_features, classes)
 
-    # resnet.conv1 = torch.nn.Conv2d(1, 64, kernel_size=7, stride=2, padding=3,bias=False)
+
     # resnet = densenet121(weights=DenseNet121_Weights.IMAGENET1K_V1)
     # resnet.fc = torch.nn.Sequential(torch.nn.Linear(resnet.classifier.in_features, classes))
     # resnet.classifier = torch.nn.Linear(1024, classes)
@@ -308,6 +305,7 @@ for curr_round in range(1, rounds + 1):
     test_loss.append(t_loss)
 
     if best_accuracy < t_accuracy:
+        torch.save(global_net.state_dict(), 'model_cifar.pt')
         best_accuracy = t_accuracy
 
     print("test accuracy: ", t_accuracy, ",best accuracy: ", best_accuracy,

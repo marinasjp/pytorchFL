@@ -13,12 +13,11 @@ df = pd.read_csv(".\\clean_dataframe_small")
 
 
 # labels = [ "White", "Black", "Latino_Hispanic", "East Asian", "Southeast Asian", "Indian", "Middle Eastern"]
-# class_to_idx = {_class: i for i, _class in enumerate(labels)}
 # labels = [ "airplane", "automobile", "bird", "cat", "deer", "dog", "frog", "horse", "ship", "truck"]
-# class_to_idx = {_class: i for i, _class in enumerate(labels)}
+# labels = ["Airfield", "Beach", "Dense Residential","Farm","Flyover", "Forest", "Game Space", "Parking Space", "River",
+#           "Sparse Residential", "Storage Cisterns", "Anchorage"]
+labels = ['basophil', 'eosinophil', 'erythroblast', 'ig', 'lymphocyte', 'monocyte', 'neutrophil', 'platelet']
 
-labels = ["Airfield", "Beach", "Dense Residential","Farm","Flyover", "Forest", "Game Space", "Parking Space", "River",
-          "Sparse Residential", "Storage Cisterns", "Anchorage"]
 class_to_idx = {_class: i for i, _class in enumerate(labels)}
 
 class ChestDataset(VisionDataset):
